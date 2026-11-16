@@ -241,6 +241,24 @@ export class EmailAddress implements Equatable, JsonStringifyable {
     }
 
     /**
+     * The domain of the email address.
+     */
+    private get domain(): string {
+        const at = this.#value.lastIndexOf('@');
+        return at >= 0
+            ? this.#value.slice(at + 1)
+            : '';
+    }
+
+    /**
+     * Indicates if the email address has a single label domain.
+     */
+    public get HasSingleLabelDomain(): boolean {
+        const domain = this.domain;
+        return domain.length > 0 && !domain.includes('.') && !domain.endsWith(']');
+    }
+
+    /**
      * Indicates if the email address is IP-based.
      */
     public get isIPBased(): boolean {
