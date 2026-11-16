@@ -300,7 +300,7 @@ describe('Email address', () => {
             'ipv4.addr@[123.1.7(some comment)2.10]',
             'ipv4.addr@123.1.7(some comment)2.10',
         ])
-        ('%s supports commnets', (s) =>{
+        ('%s supports comments', (s) =>{
             const svo = EmailAddress.parse(s);
             expect(svo?.toString()).toBe('ipv4.addr@[123.1.72.10]');
         });
@@ -320,6 +320,19 @@ describe('Email address', () => {
             ('%s supports IPv6', (s) => {
 
             });
+    });
+
+    describe('Has single label domain', () => {
+        test.each([
+            ['info@localhost', true],
+            ['info.qowaiv@localhost', true],
+            ['info@qowaiv.org', false],
+            ['info@sub.qowaiv.org', false],
+            ['info@[192.0.2.1]', false],
+        ])('HasSingleLabelDomain(%s) = %s', (s, expected) => {
+            const svo = EmailAddress.parse(s);
+            expect(svo?.HasSingleLabelDomain).toBe(expected);
+        });
     });
 
     test.each([
