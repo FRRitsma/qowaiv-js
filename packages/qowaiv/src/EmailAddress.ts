@@ -253,7 +253,7 @@ export class EmailAddress implements Equatable, JsonStringifyable {
     /**
      * Indicates if the email address has a single label domain.
      */
-    public get HasSingleLabelDomain(): boolean {
+    public get hasSingleLabelDomain(): boolean {
         const domain = this.domain;
         return domain.length > 0 && !domain.includes('.') && !domain.endsWith(']');
     }

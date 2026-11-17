@@ -329,9 +329,9 @@ describe('Email address', () => {
             ['info@qowaiv.org', false],
             ['info@sub.qowaiv.org', false],
             ['info@[192.0.2.1]', false],
-        ])('HasSingleLabelDomain(%s) = %s', (s, expected) => {
+        ])('hasSingleLabelDomain(%s) = %s', (s, expected) => {
             const svo = EmailAddress.parse(s);
-            expect(svo?.HasSingleLabelDomain).toBe(expected);
+            expect(svo?.hasSingleLabelDomain).toBe(expected);
         });
     });
 
