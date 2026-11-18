@@ -314,12 +314,22 @@ describe('Email address', () => {
             'valid.ipv6.addr@[IPv6:fe80::230:48ff:fe33:bc33]',
             'valid.ipv6.addr@[IPv6:fe80:0000:0000:0000:0202:b3ff:fe1e:8329]',
             'valid.ipv6v4.addr@[IPv6:aaaa:aaaa:aaaa:aaaa:aaaa:aaaa:127.0.0.1]',
-            'valid.ipv6.without-brackets@[2607:f0d0:1002:51::4]',
+            'valid.ipv6.with-brackets@[2607:f0d0:1002:51::4]',
             'valid.ipv6.without-brackets@2607:f0d0:1002:51::4',
         ])
             ('%s supports IPv6', (s) => {
 
             });
+    });
+
+    describe('Returns domain', () => {
+        test.each([
+            ['info@qowaiv.org', 'qowaiv.org'],
+            ['info@[192.0.2.1]', '192.0.2.1'],
+        ])('domain(%s) = %s', (s, expected) => {
+            const svo = EmailAddress.parse(s);
+            expect(svo?.domain).toBe(expected);
+        });
     });
 
     describe('Has single label domain', () => {

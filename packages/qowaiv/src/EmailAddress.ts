@@ -243,11 +243,15 @@ export class EmailAddress implements Equatable, JsonStringifyable {
     /**
      * The domain of the email address.
      */
-    private get domain(): string {
+    public get domain(): string {
         const at = this.#value.lastIndexOf('@');
-        return at >= 0
+        const domain = at >= 0
             ? this.#value.slice(at + 1)
             : '';
+        if (this.isIPBased && domain.startsWith('[') && domain.endsWith(']')){
+            return domain.slice(1, -1)
+        }
+        return domain;
     }
 
     /**
